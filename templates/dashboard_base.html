@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Side Menu Example</title>
+    <style>
+	.position-sticky {
+		background-color: rgba(255, 99, 71, 0.2);
+	}
+	.container mt-4 {
+		background-color: #ADD8E6;
+	}
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+    <div class="container-fluid ">
+        <div class="row">
+         <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+    	<div class="position-sticky">
+        <ul class="nav flex-column">
+	    <li class="nav-item">
+		<img src="{% static 'logo.jpg' %}" width="100vw">
+            <li class="nav-item">
+		<img src="" width="" height="">
+                <a class="nav-link" href="#"><font color="black">Home</font></a>
+            </li>
+            <li class="nav-item">
+		<img src="" width="" height="">
+                <a class="nav-link" href="dms.html"><font color="black">Add document</font></a>
+            </li>
+            <li class="nav-item">
+		<img src="" width="" height="">
+                <a class="nav-link" href="#"><font color="black">Search document</font></a>
+            </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+                <a class="nav-link" href="#"><font color="black">Recently published</font></a>
+            </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+                <a class="nav-link" href="#"><font color="black">Popular papers</font></a>
+            </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+		<a class="nav-link" href="#"></a>
+	    </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+		<a class="nav-link" href="#"></a>
+	    </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+		<a class="nav-link" href="#"></a>
+	    </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+		<a class="nav-link" href="#"></a>
+	    </li>
+	    <li class="nav-item">
+		<img src="" width="" height="">
+		<a class="nav-link" href="#"></a>
+	    </li>
+        </ul>
+    </div>
+</nav>
+
+            </nav>
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <!-- Navbar toggle button for mobile -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Form with search, filters, and search options -->
+                <form class="form-inline">
+
+                    <!-- Filter dropdown -->
+                    <div class="form-group mr-5">
+                        <label for="filterSelect">Filter:</label>
+                        <select class="form-control" id="filterSelect">
+                            <option value="">All</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                        </select>
+                    </div>
+
+                    <!-- Search by topic checkbox -->
+                    <div class="form-check mr-5">
+                        <input type="checkbox" class="form-check-input" id="topicCheck">
+                        <label class="form-check-label" for="topicCheck">Search by Topic</label>
+                    </div>
+
+                    <!-- Search by faculty/student checkbox -->
+                    <div class="form-check mr-5">
+                        <input type="checkbox" class="form-check-input" id="facultyStudentCheck">
+                        <label class="form-check-label" for="facultyStudentCheck">Search by Faculty/Student</label>
+                    </div>
+
+                    <!-- Submit button (you can add additional actions if needed) -->
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+{% block content %}
+<div class="container mt-4">
+        <h2><font color="Tomato">Add documents</font></h2><br/>
+        <form>
+            <div class="form-group">
+                <label for="fileInput"><b>Select a file to upload:</b></label>
+                <input type="file" class="form-control-file" id="fileInput">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
+        </form>
+
+        <hr>
+	<br/>
+{% endblock %}
+        <h4>Uploaded Documents</h4>
+        <ul id="documentList" class="list-group">
+            <!-- Display uploaded documents here -->
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to handle file upload
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const fileList = fileInput.files;
+
+            if (fileList.length > 0) {
+                const documentList = document.getElementById('documentList');
+
+                // Iterate through the selected files and display their names
+                for (let i = 0; i < fileList.length; i++) {
+                    const fileName = fileList[i].name;
+
+                    // Create a list item and append it to the document list
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item';
+                    listItem.textContent = fileName;
+                    documentList.appendChild(listItem);
+                }
+
+                // You can add code here to handle file upload to the server (not included in this example)
+                // You may use AJAX to send the files to the server for processing and storage.
+            }
+        }
+    </script>
+</main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

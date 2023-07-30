@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student</title>
-</head>
-<body>
-    <h1>Upload a File</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <label><input type="title" name="title"></label>
-        <label><input type="text" name="description"></label>
-        <button type="submit">Upload</button>
-    </form>
-</body>
-</html>
+{% extends 'dashboard_base.html' %} {% block content %}
+<h1 class="mt-4 ">Upload a Research Paper</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <form>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Title of the Paper</label>
+      <input
+        name="title"
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Description</label>
+      <textarea
+        name="description"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlFile1">Upload the file : </label>
+      <input
+        type="file"
+        name="file"
+        class="form-control-file"
+        id="exampleFormControlFile1"
+      />
+    </div>
+    <button type="submit">Upload</button>
+  </form>
+  {% endblock %}
+</form>
