@@ -6,4 +6,3 @@ class FileForm(forms.ModelForm):
     class Meta:
         model = FileModel
         fields = ['title', 'description', 'file']
-

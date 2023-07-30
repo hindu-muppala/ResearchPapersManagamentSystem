@@ -3,14 +3,14 @@ class Student(models.Model):
     name=models.CharField(max_length=30)
     college=models.CharField(max_length=30)
     email=models.CharField(max_length=30)
-    password=models.IntegerField()
+    password=models.CharField(max_length=30)
     def __str__(self):
         return self.name
 class Faculty(models.Model):
     name=models.CharField(max_length=30)
     college=models.CharField(max_length=30)
     email=models.CharField(max_length=30)
-    password=models.IntegerField()
+    password=models.CharField(max_length=30)
     def __str__(self):
         return self.name
 class FileModel(models.Model):

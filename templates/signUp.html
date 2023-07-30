@@ -60,15 +60,15 @@
 </head>
 
 <body>
-  {% csrf_token %}
   <div class="container d-flex flex-row">
     <div class="signup-form container-md">
       <h2>Faculty</h2>
       <h2>Sign Up</h2>
-      <form id="signupForm" novalidate action="http://localhost:8000/createFaculty" method="GET">
+      <form id="signupForm1" novalidate>
+        {% csrf_token %}
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" class="form-control" id="username1" name="name" required>
+          <input type="text" class="form-control" id="name1" name="name" required>
           <div class="invalid-feedback">Please enter a valid username.</div>
           <div class="valid-feedback">Looks good!</div>
         </div>
@@ -142,7 +142,85 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
   <script>
-   
+    function getCookie(cookieName) {
+      const cookiesArray = document.cookie.split(';');
+      for (const cookie of cookiesArray) {
+        const trimmedCookie = cookie.trim();
+        if (trimmedCookie.startsWith(cookieName + '=')) {
+          return trimmedCookie.substring(cookieName.length + 1);
+        }
+      }
+      return null;
+    }
+    function setCsrfTokenAsCookie() {
+      const csrfInput = document.querySelector('[name="csrfmiddlewaretoken"]');
+      if (csrfInput) {
+        const csrfToken = csrfInput.value;
+        document.cookie = `csrftoken=${csrfToken}; path=/;`;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      setCsrfTokenAsCookie();
+    });
+    document.getElementById('signupForm1').addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (this.checkValidity()) {
+        a={}
+        a['name']=document.getElementById("name1").value
+        a['email']=document.getElementById("email1").value
+        a['college']=document.getElementById("college1").value
+        a['password']=document.getElementById("password1").value
+        console.log(getCookie('csrftoken'))
+        fetch('http://localhost:8000/createFaculty', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: JSON.stringify(a)
+        }).then(response => response.json()).then((response) => {
+          if(response['validation']=="True"){
+
+            window.location="http://localhost:8000/dashboard"
+          }
+          else{alert("Please login!!")}
+        })
+      } else {
+        this.classList.add('was-validated');
+        alert("Enter correct details")
+      }
+    });
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (this.checkValidity()) {
+        a={}
+        a['name']=document.getElementById("name").value
+        a['email']=document.getElementById("email").value
+        a['college']=document.getElementById("college").value
+        a['password']=document.getElementById("password").value
+        console.log(getCookie('csrftoken'))
+        fetch('http://localhost:8000/createStudent', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: JSON.stringify(a)
+        }).then(response => response.json()).then((response) => {
+          if(response['validation']=="True"){
+
+            window.location="http://localhost:8000/dashboard"
+          }
+          else{alert("Please login!!")}
+        })
+      } else {
+        this.classList.add('was-validated');
+        alert("Enter correct details")
+      }
+    });
+
   </script>
 </body>
 
